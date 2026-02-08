@@ -18,9 +18,8 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.datas,
     [],
+    exclude_binaries=True,
     name='BilligerPriceChecker',
     debug=False,
     bootloader_ignore_signals=False,
@@ -36,8 +35,17 @@ exe = EXE(
     entitlements_file=None,
 )
 
-app = BUNDLE(
+coll = COLLECT(
     exe,
+    a.binaries,
+    a.datas,
+    strip=False,
+    upx=True,
+    name='BilligerPriceChecker',
+)
+
+app = BUNDLE(
+    coll,
     name='BilligerPriceChecker.app',
     icon=None,
     bundle_identifier='de.billiger.pricechecker',
